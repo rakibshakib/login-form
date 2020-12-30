@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/7716d8d7b9.js" crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.css" />
+    <link rel="stylesheet" href="style.css">
+    <title>Login Form </title>
+</head>
+
+<body>
+    <section class="form-section">
+        <form class="form-container">
+            <h1 class="login-header">Login</h1>
+            <div class="input-item">
+                <label class="input-label" for="">Username</label>
+                <div class="input-field">
+                    <span class="input-icon"><i class="fas fa-user"></i></span>
+                    <input type="text" name="username" id="" placeholder="Type your username">
+                </div>
+            </div>
+            <div class="input-item">
+                <label class="input-label" for="">Password</label>
+                <div class="input-field">
+                    <span class="input-icon"><i class="fas fa-lock"></i></span>
+                    <input type="password" name="username" id="" placeholder="Type your username">
+                </div>
+            </div>
+            <span class="forgot-password">Forgot Password?</span>
+            <div class="btn-style">
+                <button class="login-btn" type="submit">Login</button>
+            </div>
+            <div class="login-with">
+                <span>Or Sign Up Using</span>
+                <span class="icon"><i class="facebook fab fa-facebook-f"></i></span>
+                <span class="icon  "><i class=" github fab fa-github"></i></span>
+                <span class="icon " id="google"><i class="google fab fa-google"></i></span>
+                <span class="icon "><i class="twitter fab fa-twitter"></i></span>
+            </div>
+            <div class="have-account">
+                <span>Have not account yet?</span>
+                <a href="">Sign Up</a>
+            </div>
+        </form>
+    </section>
+
+
+
+
+
+
+
+    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script defer src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+
+    <script defer src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.2.1/firebase-firestore.js"></script>
+    
+
+    
+    <script defer src="./init-firebase.js"></script>
+    <script>
+        // import * as firebase from "firebase/app";
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        var firebaseConfig = {
+            apiKey: "AIzaSyCdyHU1b3ljirPCcM4-3JsiJiaLXvBT8Gk",
+            authDomain: "rakib-shakib.firebaseapp.com",
+            projectId: "rakib-shakib",
+            storageBucket: "rakib-shakib.appspot.com",
+            messagingSenderId: "901874169502",
+            appId: "1:901874169502:web:987265dd0e6b21fe10ad8f",
+            measurementId: "G-RMTD92H81X"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+
+        const googleButton = document.querySelector('#google');
+
+        googleButton.addEventListener('click', function (event) {
+            var provider = new firebase.auth.GoogleAuthProvider();
+            console.log("something")
+            firebase.auth()
+                .signInWithPopup(provider)
+                .then((result) => {
+
+                    var credential = result.credential;
+
+                    // This gives you a Google Access Token. You can use it to access the Google API.
+                    var token = credential.accessToken;
+                    // The signed-in user info.
+                    var user = result.user;
+                    console.log(user)
+                    // ...
+                }).catch((error) => {
+                    // Handle Errors here.
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    // The email of the user's account used.
+                    var email = error.email;
+                    // The firebase.auth.AuthCredential type that was used.
+                    var credential = error.credential;
+                    // ...
+                });
+        });
+
+        console.log("button cliked")
+    </script>
+</body>
+
+</html>
